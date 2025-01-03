@@ -7,41 +7,50 @@
 @include("partials.header")
 <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
     <div class="container text-center py-5">
-        <h1 class="text-white display-3 mt-lg-5">Pedidos</h1>
+        <h1 class="text-white display-3 mt-lg-5">Quincena</h1>
         <div class="d-inline-flex align-items-center text-white">
             <p class="m-0"><a class="text-white" href="">Home</a></p>
             <i class="fa fa-circle px-3"></i>
-            <p class="m-0">Pedidos</p>
+            <p class="m-0">Quincena {{$quincena->Fecha_Comienzo}}</p>
         </div>
     </div>
 </div>
+
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
+
 <div class="container">
     <table id="pedidosTable" class="display">
         <thead>
         <tr>
-            <th>Fecha</th>
-            <th>Día</th>
-            <th>Mes</th>
-            <th>Total</th>
+            <th>Apodo</th>
+            <th>Total a Pagar</th>
+            <th>Estado</th>
+            <th>Acciones</th> <!-- Columna para los botones -->
         </tr>
         </thead>
         <tbody>
-        @foreach($pedidos as $pedido)
-            <tr onclick="window.location.href='/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
-                <td>{{ $pedido->Fecha }}</td>
-                <td>{{ $pedido->Dia}}</td>
-                <td>{{ $pedido->Mes}}</td>
-                <td>${{ number_format($pedido->Total, 2, '.', ',') }}</td>
+        @foreach($registroClientes as $registro)
+            <tr>
+                <td>{{ $registro->Cliente->Apodo }}</td>
+                <td>${{ number_format($registro->Total_Quincena, 2, '.', ',') }}</td>
+                <td>{{ $registro->Estado }}</td>
+                <td>
+                    <!-- Botón de Ver -->
+                    <a href="/registro-quincena-cliente/{{$registro->ID}}" class="btn btn-info btn-sm">Ver</a>
+                    <!-- Botón de Editar -->
+                    <a href="/registro-quincena-cliente/{{$registro->ID}}/editar" class="btn btn-warning btn-sm">Editar</a>
+                </td>
             </tr>
         @endforeach
         </tbody>
     </table>
 </div>
+
+<h4>Total de la quincena: ${{ number_format($quincena->Total_Ganado, 2) }}</h4>
 
 @include("partials.footer")
 

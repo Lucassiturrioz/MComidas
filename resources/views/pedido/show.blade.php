@@ -15,7 +15,11 @@
         </div>
     </div>
 </div>
-
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <!-- Tabla de Pedidos -->
 <div class="container">
     <h3>Pedidos del {{ \Carbon\Carbon::parse($pedido->Fecha)->format('d-m-Y') }}</h3>
@@ -30,15 +34,16 @@
         </thead>
         <tbody>
         @foreach ($clientes as $cliente)
-            <tr>
-                <td>{{ $cliente->Apodo }}</td>
+            <tr onclick="window.location.href='/clientes/{{$cliente->ID}}/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
+            <td>{{ $cliente->Apodo }}</td>
                 <td>{{ $cliente->Productos }}</td>
                 <td>${{ number_format($cliente->TotalGastado, 2) }}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
-
+</div>
+    <h4>Total del dia: ${{ number_format($pedido->Total_Dia, 2) }}</h4>
 @include("partials.footer")
 
 <!-- Librerías de JavaScript -->

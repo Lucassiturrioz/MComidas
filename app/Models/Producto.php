@@ -17,6 +17,7 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class,'Categoria','ID');
     }
 
+
     public static function allActivo(){
         return self::where('Estado','ALTA')->get();
     }

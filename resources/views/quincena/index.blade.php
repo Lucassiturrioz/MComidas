@@ -7,11 +7,11 @@
 @include("partials.header")
 <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
     <div class="container text-center py-5">
-        <h1 class="text-white display-3 mt-lg-5">Pedidos</h1>
+        <h1 class="text-white display-3 mt-lg-5">Quicenas</h1>
         <div class="d-inline-flex align-items-center text-white">
             <p class="m-0"><a class="text-white" href="">Home</a></p>
             <i class="fa fa-circle px-3"></i>
-            <p class="m-0">Pedidos</p>
+            <p class="m-0">Quicenas</p>
         </div>
     </div>
 </div>
@@ -24,19 +24,17 @@
     <table id="pedidosTable" class="display">
         <thead>
         <tr>
-            <th>Fecha</th>
-            <th>Día</th>
-            <th>Mes</th>
-            <th>Total</th>
+            <th>Fecha Comienzo</th>
+            <th>Fecha Finalizacion</th>
+            <th>Total ganado</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($pedidos as $pedido)
-            <tr onclick="window.location.href='/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
-                <td>{{ $pedido->Fecha }}</td>
-                <td>{{ $pedido->Dia}}</td>
-                <td>{{ $pedido->Mes}}</td>
-                <td>${{ number_format($pedido->Total, 2, '.', ',') }}</td>
+        @foreach($quincenas as $quincena)
+            <tr onclick="window.location.href='/quincenas/{{$quincena->ID}}';" style="cursor: pointer;">
+                <td>{{ $quincena->Fecha_Comienzo }}</td>
+                <td>{{ $quincena->Fecha_Finalizacion}}</td>
+                <td>${{ number_format($quincena->Total_Ganado, 2, '.', ',') }}</td>
             </tr>
         @endforeach
         </tbody>

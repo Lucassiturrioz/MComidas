@@ -51,12 +51,18 @@
                 </table>
 
                 <!-- Botones de acción -->
-                <div class="mt-4">
-                    <a href="/clientes/{{$cliente->ID}}/editar" class="btn btn-warning">Editar</a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#estadoModal">
+                <div class="mt-4 d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
+                    <a href="/clientes/{{$cliente->ID}}/agregar-pedido" class="btn btn-outline-primary mb-2 mb-sm-0 w-100 w-sm-auto d-flex justify-content-center align-items-center">
+                        Agregar nuevo pedido
+                    </a>
+                    <a href="/clientes/{{$cliente->ID}}/editar" class="btn btn-warning mb-2 mb-sm-0 w-100 w-sm-auto d-flex justify-content-center align-items-center">
+                        Editar
+                    </a>
+                    <button class="btn btn-danger w-100 w-sm-auto d-flex justify-content-center align-items-center" data-toggle="modal" data-target="#estadoModal">
                         {{ $cliente->Estado == 'Activo' ? 'Desactivar' : 'Activar' }}
                     </button>
                 </div>
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="estadoModal" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
@@ -100,6 +106,8 @@
         </div>
     </div>
 </div>
+
+
 
 @include('partials.footer')
 
