@@ -57,7 +57,7 @@
                     </a>
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/productos" class="nav-item nav-link">Productos</a>
-                        <a href="gallery.html" class="nav-item nav-link">Pedidos</a>
+                        <a href="/pedidos" class="nav-item nav-link">Pedidos</a>
                         <a href="contact.html" class="nav-item nav-link">Cuentas</a>
                     </div>
                 </div>
