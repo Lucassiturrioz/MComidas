@@ -34,7 +34,7 @@
                             <img class="rounded-circle w-100 h-100" src="{{url('img/product-1.jpg')}}" style="object-fit: cover;">
                         </div>
                         <!-- Nombre del producto con truncamiento y tooltip -->
-                        <h5 class="font-weight-bold mb-4 text-truncate" style="max-width: 200px;" title="{{$producto->Nombre}} - {{$producto->categoria->Nombre}}">
+                        <h5 class="font-weight-bold mb-4 text-truncate" style="max-width: 150px;" title="{{$producto->Nombre}} - {{$producto->categoria->Nombre}}">
                             {{$producto->Nombre}} - {{$producto->categoria->Nombre}}
                         </h5>
                         <!-- Botón de acción -->

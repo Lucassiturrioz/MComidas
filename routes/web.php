@@ -21,7 +21,12 @@ Route::put('/productos/{producto}', [ProductoController::class, 'activate'])->na
 Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
 Route::get('/categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
 
+
 Route::get('/clientes', [ClienteController::class, 'index'])->name('cliente.index');
+Route::get('/clientes/crear', [ClienteController::class, 'create'])->name('clientes.crear');
+Route::post('/clientes/crear', [ClienteController::class, 'store'])->name('clientes.store');
+Route::get('/clientes/{cliente}/editar', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{cliente}/editar', [ClienteController::class, 'update'])->name('clientes.update');
 Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('cliente.show');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 Route::put('/clientes/{cliente}', [ClienteController::class, 'activate'])->name('cliente.activate');

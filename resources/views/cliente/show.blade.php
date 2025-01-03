@@ -52,7 +52,7 @@
 
                 <!-- Botones de acción -->
                 <div class="mt-4">
-                    <a href="#" class="btn btn-warning">Editar</a>
+                    <a href="/clientes/{{$cliente->ID}}/editar" class="btn btn-warning">Editar</a>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#estadoModal">
                         {{ $cliente->Estado == 'Activo' ? 'Desactivar' : 'Activar' }}
                     </button>

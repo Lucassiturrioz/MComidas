@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include("partials.head")
-
-<!-- Carga de la librería de DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
-
 <body>
+
 @include("partials.header")
+<div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-3 mt-lg-5">Clientes</h1>
+        <div class="d-inline-flex align-items-center text-white">
+            <p class="m-0"><a class="text-white" href="">Home</a></p>
+            <i class="fa fa-circle px-3"></i>
+            <p class="m-0">Clientes</p>
+        </div>
+    </div>
+</div>
 
 <table id="myTable" class="display">
     <thead>
@@ -18,6 +26,7 @@
     </tr>
     </thead>
     <tbody>
+
     @foreach($clientes as $cliente)
         <tr onclick="window.location.href='/clientes/{{$cliente->ID}}';" style="cursor: pointer;">
             <td>{{$cliente->Nombre}}</td>

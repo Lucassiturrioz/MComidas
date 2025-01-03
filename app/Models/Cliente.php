@@ -12,5 +12,11 @@ class Cliente extends Model
 
     protected $fillable = ['Nombre','Apellido','Apodo','Numero','Estado'];
 
+    public static function checkApodo(String $Apodo): bool
+    {
+        return self::where('Apodo', $Apodo)->exists();
+    }
+
+
 
 }

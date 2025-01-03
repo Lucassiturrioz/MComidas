@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
     public function index(){
-        return view('productos.index', ['productos'=>Producto::All()]);
+        return view('productos.index', ['productos'=>Producto::allActivo()]);
     }
 
     public function create(){
