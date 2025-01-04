@@ -10,7 +10,7 @@ class Quincena extends Model
     protected $primaryKey = 'ID';
     public $timestamps = false;
 
-    protected $fillable = ['Fecha_Comienzo','Fecha_Finalizacion','Total_ganado'];
+    protected $fillable = ['Fecha_Comienzo','Fecha_Finalizacion','Total_Ganado'];
 
 
     public static function get($fecha)

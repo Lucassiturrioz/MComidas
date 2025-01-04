@@ -1,5 +1,14 @@
 <footer>
-    <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
+
+    <a href="#" onclick="history.back(); return false;" class="btn btn-secondary back-to-top position-fixed" style="margin-right: 30px;">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
+    <a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+
+    <div class="container-fluid footer bg-light py-5" >
         <div class="container text-center py-5">
             <div class="row">
                 <div class="col-12 mb-4">

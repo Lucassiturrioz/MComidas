@@ -37,22 +37,24 @@
 
                 <div class="form-group">
                     <label for="estado_pago">Estado de Pago</label>
-                    <select class="form-control" id="estado_pago" name="Estado">
+                    <select class="form-control custom-select" id="estado_pago" name="Estado">
                         <option value="No Pago" {{ old('Estado', $registro->Estado) == 'No Pago' ? 'selected' : '' }}>No Pago</option>
                         <option value="Pago Parcial" {{ old('Estado', $registro->Estado) == 'Pago Parcial' ? 'selected' : '' }}>Pago Parcial</option>
                         <option value="Pago Completo" {{ old('Estado', $registro->Estado) == 'Pago Completo' ? 'selected' : '' }}>Pago Completo</option>
                     </select>
                 </div>
 
-
                 <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <a href="/quincenas/{{$registro->ID_Cuenta}}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
+                    <a href="/quincenas/{{$registro->ID_Cuenta}}" class="btn btn-secondary btn-block mt-2">Cancelar</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
 
 @include("partials.footer")
 
@@ -67,5 +69,6 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('js/main.js') }}"></script>
+
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
@@ -63,27 +64,38 @@ class Pedido extends Model
         $pedido = Pedido::where('Fecha', $fecha)->first();
 
         if ($pedido == null && $fecha == now()->toDateString()) {
-            return $this->crearPedido($fecha);
+            return Pedido::crearPedido($fecha);
         }
 
         return $pedido;
     }
 
 
-    public function crearPedido($fecha)
+    public static function crearPedido($fecha)
     {
         $quincena = Quincena::get($fecha);
 
         if ($quincena == null) {
             $parametros = [
                 'Fecha_Comienzo' => now()->toDateString(),
-                'Fecha_Finalizacion' => now()->addDays(15)->toDateString()
+                'Fecha_Finalizacion' => now()->addDays(15)->toDateString(),
+                'Total_Ganado' => 0
             ];
             Quincena::create($parametros);
             $quincena = Quincena::get($fecha);
         }
 
-        return Pedido::create(['Fecha' => $fecha, 'ID_Quincena' => $quincena->ID]);
+        $fechaActual = Carbon::now();
+        $fechaActual->locale('es');
+        $dia = $fechaActual->dayName;
+        $mes = $fechaActual->monthName;
+
+
+        $diaActual = Dia::where('Nombre', $dia)->first();
+        $mesActual = Mes::where('Nombre', $mes)->first();
+
+
+        return Pedido::create(['Fecha' => $fecha, 'Cuenta' => $quincena->ID, 'Dia'=>$diaActual->ID, 'Mes'=>$mesActual->ID, 'Total_Dia'=>0]);
 
     }
 

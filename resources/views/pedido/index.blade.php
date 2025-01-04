@@ -5,6 +5,7 @@
 <body>
 
 @include("partials.header")
+<!-- Jumbotron Mejorado para ser Responsivo -->
 <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
     <div class="container text-center py-5">
         <h1 class="text-white display-3 mt-lg-5">Pedidos</h1>
@@ -15,36 +16,45 @@
         </div>
     </div>
 </div>
+
+<!-- Alerta de éxito -->
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
+
+<!-- Contenedor con tabla -->
 <div class="container">
-    <table id="pedidosTable" class="display">
-        <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Día</th>
-            <th>Mes</th>
-            <th>Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($pedidos as $pedido)
-            <tr onclick="window.location.href='/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
-                <td>{{ $pedido->Fecha }}</td>
-                <td>{{ $pedido->Dia}}</td>
-                <td>{{ $pedido->Mes}}</td>
-                <td>${{ number_format($pedido->Total, 2, '.', ',') }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <table id="pedidosTable" class="table table-striped table-bordered dt-responsive nowrap">
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Día</th>
+                    <th>Mes</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($pedidos as $pedido)
+                    <tr onclick="window.location.href='/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
+                        <td>{{ $pedido->Fecha }}</td>
+                        <td>{{ $pedido->Dia}}</td>
+                        <td>{{ $pedido->Mes}}</td>
+                        <td>${{ number_format($pedido->Total, 2, '.', ',') }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @include("partials.footer")
 
+<!-- Botón de desplazamiento superior -->
 <a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 <!-- Librerías de JavaScript -->

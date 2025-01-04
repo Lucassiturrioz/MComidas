@@ -23,38 +23,44 @@
 @endif
 
 <div class="container">
-    <table id="pedidosTable" class="display">
-        <thead>
-        <tr>
-            <th>Apodo</th>
-            <th>Total a Pagar</th>
-            <th>Estado</th>
-            <th>Acciones</th> <!-- Columna para los botones -->
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($registroClientes as $registro)
+    <div class="table-responsive">
+        <table id="pedidosTable" class="table table-striped table-bordered">
+            <thead class="thead-dark">
             <tr>
-                <td>{{ $registro->Cliente->Apodo }}</td>
-                <td>${{ number_format($registro->Total_Quincena, 2, '.', ',') }}</td>
-                <td>{{ $registro->Estado }}</td>
-                <td>
-                    <!-- Botón de Ver -->
-                    <a href="/registro-quincena-cliente/{{$registro->ID}}" class="btn btn-info btn-sm">Ver</a>
-                    <!-- Botón de Editar -->
-                    <a href="/registro-quincena-cliente/{{$registro->ID}}/editar" class="btn btn-warning btn-sm">Editar</a>
-                </td>
+                <th>Apodo</th>
+                <th>Total a Pagar</th>
+                <th>Estado</th>
+                <th>Acciones</th> <!-- Columna para los emoticones -->
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($registroClientes as $registro)
+                <tr>
+                    <td>{{ $registro->Cliente->Apodo }}</td>
+                    <td>${{ number_format($registro->Total_Quincena, 2, '.', ',') }}</td>
+                    <td>{{ $registro->Estado }}</td>
+                    <td class="text-center">
+                        <!-- Emoticón de Ver sin bordes -->
+                        <a href="/registro-quincena-cliente/{{$registro->ID}}" title="Ver" style="font-size: 24px; text-decoration: none; color: inherit;">
+                            👁️
+                        </a>
+                        <!-- Emoticón de Editar sin bordes -->
+                        <a href="/registro-quincena-cliente/{{$registro->ID}}/editar" title="Editar" style="font-size: 24px; text-decoration: none; color: inherit;">
+                            ✏️
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<h4>Total de la quincena: ${{ number_format($quincena->Total_Ganado, 2) }}</h4>
+<h4 class="text-right text-info mb-4">Total de la quincena  ${{ number_format($quincena->Total_Ganado, 2) }}</h4>
+
 
 @include("partials.footer")
 
-<a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 <!-- Librerías de JavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

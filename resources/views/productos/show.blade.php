@@ -5,7 +5,7 @@
 @include('partials.header')
 
 <!-- Header del Producto -->
-<div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
+<div class="jumbotron jumbotron-fluid page-header">
     <div class="container text-center py-5">
         <h1 class="text-white display-3 mt-lg-5">{{ $producto->Nombre }}</h1>
         <div class="d-inline-flex align-items-center text-white">
@@ -49,12 +49,13 @@
                 </table>
 
                 <!-- Botones de acción -->
-                <div class="mt-4">
-                    <a href="{{ route('productos.edit', $producto) }}" class="btn btn-warning">Editar</a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#estadoModal">
+                <div class="mt-4 d-flex flex-column flex-sm-row align-items-stretch">
+                    <a href="{{ route('productos.edit', $producto) }}" class="btn btn-warning px-4 py-2 mb-3 mb-sm-0 mr-sm-3">Editar</a>
+                    <button class="btn btn-danger px-4 py-2">
                         {{ $producto->Estado == 'ALTA' ? 'Dar de Baja' : 'Dar de Alta' }}
                     </button>
                 </div>
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="estadoModal" tabindex="-1" role="dialog" aria-labelledby="estadoModalLabel" aria-hidden="true">
@@ -101,11 +102,12 @@
 
 
 
-
 @include('partials.footer')
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
 <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
@@ -113,7 +115,6 @@
 <script src="{{ asset('lib/isotope/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
 
-<!-- Template Javascript -->
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

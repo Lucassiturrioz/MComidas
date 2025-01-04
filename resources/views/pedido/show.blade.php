@@ -5,7 +5,8 @@
 <body>
 
 @include("partials.header")
-<div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
+<!-- Jumbotron Mejorado -->
+<div class="jumbotron jumbotron-fluid page-header">
     <div class="container text-center py-5">
         <h1 class="text-white display-3 mt-lg-5">Pedidos del Día</h1>
         <div class="d-inline-flex align-items-center text-white">
@@ -15,17 +16,21 @@
         </div>
     </div>
 </div>
+
+<!-- Alerta de éxito -->
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-<!-- Tabla de Pedidos -->
-<div class="container">
-    <h3>Pedidos del {{ \Carbon\Carbon::parse($pedido->Fecha)->format('d-m-Y') }}</h3>
 
-    <table class="table">
-        <thead>
+<!-- Contenedor con la tabla de pedidos -->
+<div class="container">
+    <h3 class="mb-4 text-primary">Pedidos del {{ \Carbon\Carbon::parse($pedido->Fecha)->format('d-m-Y') }}</h3>
+
+    <!-- Tabla mejorada con Bootstrap y DataTables -->
+    <table id="pedidosTable" class="table table-striped table-bordered table-hover dt-responsive nowrap">
+        <thead class="thead-dark">
         <tr>
             <th>Apodo</th>
             <th>Productos</th>
@@ -35,7 +40,7 @@
         <tbody>
         @foreach ($clientes as $cliente)
             <tr onclick="window.location.href='/clientes/{{$cliente->ID}}/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
-            <td>{{ $cliente->Apodo }}</td>
+                <td>{{ $cliente->Apodo }}</td>
                 <td>{{ $cliente->Productos }}</td>
                 <td>${{ number_format($cliente->TotalGastado, 2) }}</td>
             </tr>
@@ -43,7 +48,10 @@
         </tbody>
     </table>
 </div>
-    <h4>Total del dia: ${{ number_format($pedido->Total_Dia, 2) }}</h4>
+
+<!-- Total del día -->
+<h4 class="text-right text-info mb-4">Total del día: ${{ number_format($pedido->Total_Dia, 2) }}</h4>
+
 @include("partials.footer")
 
 <!-- Librerías de JavaScript -->
@@ -53,8 +61,12 @@
 <!-- Inicialización de DataTable -->
 <script>
     $(document).ready(function() {
-        new DataTable('#table', {
+        new DataTable('#pedidosTable', {
             responsive: true,
+            paging: true,
+            searching: true,
+            info: false,
+            autoWidth: false
         });
     });
 </script>

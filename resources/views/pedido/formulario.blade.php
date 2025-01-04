@@ -5,6 +5,8 @@
 <body>
 
 @include("partials.header")
+
+<!-- Header -->
 <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
     <div class="container text-center py-5">
         <h1 class="text-white display-3 mt-lg-5">Pedidos</h1>
@@ -16,40 +18,55 @@
     </div>
 </div>
 
+<!-- Formulario -->
+<div class="container">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('pedidos.agregarPedido',['cliente'=> $cliente, 'pedido' => $pedido]) }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4>Agregar Pedido para {{$cliente->Apodo}}</h4>
+                    <h4 class="modal-title">Agregar Pedido para {{$cliente->Apodo}}</h4>
                 </div>
                 <div class="modal-body">
-                    <label>Producto:</label>
-                    <select name="ID_Producto" class="form-control" id="producto-select" required>
-                        <option value="" data-precio="0">Seleccionar Producto</option>
-                        @foreach($productos as $producto)
-                            <option value="{{ $producto->ID }}" data-precio="{{ $producto->Precio }}">
-                                {{ $producto->Nombre }} - ${{ $producto->Precio }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <div class="form-group">
+                        <label for="producto-select">Producto:</label>
+                        <select name="ID_Producto" class="form-control" id="producto-select" required>
+                            <option value="" data-precio="0">Seleccionar Producto</option>
+                            @foreach($productos as $producto)
+                                <option value="{{ $producto->ID }}" data-precio="{{ $producto->Precio }}">
+                                    {{ $producto->Nombre }} - ${{ $producto->Precio }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                    <label>Cantidad:</label>
-                    <input type="number" name="Cantidad" class="form-control" id="cantidad-input" min="1" required>
+                    <div class="form-group">
+                        <label for="cantidad-input">Cantidad:</label>
+                        <input type="number" name="Cantidad" class="form-control" id="cantidad-input" min="1" required>
+                    </div>
 
-                    <label>Total Pedido:</label>
-                    <input type="number" name="Total_Pedido" class="form-control" id="total-pedido-input" readonly>
+                    <div class="form-group">
+                        <label for="total-pedido-input">Total Pedido:</label>
+                        <input type="number" name="Total_Pedido" class="form-control" id="total-pedido-input" readonly>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" name="Pagado" value="Pagado" class="form-check-input" id="pagado-checkbox">
+                        <label class="form-check-label" for="pagado-checkbox">Pedido Pagado</label>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
-                    <p>Fecha: {{$pedido->Fecha}}</p>
+                    <p class="text-muted">Fecha: {{$pedido->Fecha}}</p>
                     <button type="submit" class="btn btn-primary">Agregar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
+<!-- Script para calcular total -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const productoSelect = document.getElementById('producto-select');
@@ -70,8 +87,11 @@
     });
 </script>
 
+<!-- Footer -->
 @include("partials.footer")
 
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
 <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
