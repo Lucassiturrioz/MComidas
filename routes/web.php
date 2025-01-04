@@ -47,7 +47,7 @@ Route::get('/clientes/{cliente}/pedidos/{pedido}', [ProductoPedidoController::cl
 Route::delete('/producto-pedido/{productoPedido}', [ProductoPedidoController::class, 'destroy'])->name('productoPedido.detroy');
 
 Route::get('/quincenas',[QuincenaController::class,'index'])->name('quincena.index');
-Route::get('/quincenas/{quincena}',[QuincenaController::class,'show'])->name('quincena.index');
+Route::get('/quincenas/{quincena}',[QuincenaController::class,'show'])->name('quincena.show');
 
 
 Route::get('/registro-quincena-cliente/{registro}/editar', [QuincenaClienteController::class, 'edit'])->name('registroQuincenaCliente.edit');
