@@ -1,1 +1,1 @@
-php artisan serve --port=$PORT
+php artisan serve
