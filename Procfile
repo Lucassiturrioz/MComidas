@@ -1,1 +1,1 @@
-web: php artisan serve --host=0.0.0.0 --port=$PORT
+php artisan serve --host=mcomidas-production-37af.up.railway.app --port=$PORT
