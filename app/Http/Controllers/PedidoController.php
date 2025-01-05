@@ -26,18 +26,7 @@ class PedidoController extends Controller
         return view('pedido.seleccionarFecha',['cliente'=>$cliente]);
     }
 
-    public function pedido(Request $request, Cliente $cliente)
-    {
-        $pedido = Pedido::getFecha($request->fecha);
 
-        if ($pedido === null) {
-            return redirect()->back()->with('error', 'No existe pedido para esa fecha.');
-        }
-
-        $productos = Producto::allActivo();
-
-        return view('pedido.formulario', ['cliente'=>$cliente, 'pedido'=>$pedido, 'productos'=>$productos]);
-    }
 
 
 

@@ -32,6 +32,7 @@
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Total</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -40,8 +41,9 @@
             <tr>
                 <td>{{ $producto->Producto->Nombre }}</td>
                 <td>{{ $producto->Cantidad }}</td>
-                <td>${{ number_format($producto->Producto->Precio, 2, '.', ',') }}</td>
+                <td>${{ number_format($producto->Precio_Actual, 2, '.', ',') }}</td>
                 <td>${{ number_format($producto->Total_Pedido, 2, '.', ',') }}</td>
+                <th>{{$producto->Estado}}</th>
                 <td class="text-center">
                     <!-- Icono de editar -->
                     <a href="/productos/{{ $producto->ID }}/editar" title="Modificar Producto">

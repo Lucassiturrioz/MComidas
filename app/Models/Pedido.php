@@ -16,7 +16,7 @@ class Pedido extends Model
 
     protected $fillable = ['Fecha','Dia','Mes','Cuenta','Total_Dia'];
 
-    public function Dia(): BelongsTo {
+    public function dia(): BelongsTo {
         return $this->belongsTo(Dia::class,'Dia','ID');
     }
     public function Mes(): BelongsTo {
@@ -45,6 +45,7 @@ class Pedido extends Model
                 DB::raw('SUM(producto_pedido.total_pedido) AS TotalGastado')
             )
             ->where('producto_pedido.id_pedido', '=', $pedido->ID)
+            ->where('producto_pedido.Estado', '!=', 'Pagado')
             ->groupBy('cliente.Apodo','cliente.ID')
             ->orderBy('cliente.Apodo')
             ->get();

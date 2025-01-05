@@ -47,8 +47,11 @@
                         <td>Estado</td>
                         <td>{{ $cliente->Estado }}</td>
                     </tr>
+                        <td>Estado de cuenta</td>
+                        <td>{{$cliente->Pagos_pendiente}}</td>
                     </tbody>
                 </table>
+
 
                 <!-- Botones de acción -->
                 <div class="mt-4 d-flex flex-column flex-sm-row justify-content-start align-items-start">
@@ -109,6 +112,26 @@
     </div>
 </div>
 
+@if($cliente->Pagos_pendiente != 'No debe')
+    <table id="quincenas-table" class="display">
+        <thead>
+        <tr>
+            <th>Cuenta</th>
+            <th>Fecha Comienzo</th>
+            <th>Total Quincena</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($quincenas as $quincena)
+            <tr>
+                <td>{{ $quincena->Quincena->ID }}</td> <!-- Aquí asumo que quieres mostrar el ID de la Cuenta -->
+                <td>{{ $quincena->Quincena->Fecha_Comienzo }}</td> <!-- Fecha de comienzo de la cuenta -->
+                <td>${{ number_format($quincena->Total_Quincena, 2) }}</td> <!-- Total de la quincena formateado -->
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+@endif
 
 
 @include('partials.footer')

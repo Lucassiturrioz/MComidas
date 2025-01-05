@@ -10,7 +10,7 @@ class Cliente extends Model
     protected $primaryKey = 'ID';
     public $timestamps = false;
 
-    protected $fillable = ['Nombre','Apellido','Apodo','Numero','Estado'];
+    protected $fillable = ['Nombre','Apellido','Apodo','Numero','Estado','Pagos_pendiente'];
 
     public static function checkApodo(String $Apodo): bool
     {

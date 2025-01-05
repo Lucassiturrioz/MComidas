@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\RegistroQuincenaCliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -11,9 +12,13 @@ class ClienteController extends Controller
         return view('cliente.index',['clientes'=>Cliente::all()]);
     }
 
-    public function show(Cliente $cliente){
-        return view('cliente.show',['cliente'=>$cliente]);
+    public function show(Cliente $cliente)
+    {
+        $quincenas = RegistroQuincenaCliente::where('ID_Cliente',$cliente->ID)->where('Estado','No Pago')->get();
+
+        return view('cliente.show', ['cliente' => $cliente, 'quincenas' => $quincenas]);
     }
+
 
     public function create(){
         return view('cliente.create');

@@ -41,9 +41,9 @@
                 @foreach($pedidos as $pedido)
                     <tr onclick="window.location.href='/pedidos/{{$pedido->ID}}';" style="cursor: pointer;">
                         <td>{{ $pedido->Fecha }}</td>
-                        <td>{{ $pedido->Dia}}</td>
-                        <td>{{ $pedido->Mes}}</td>
-                        <td>${{ number_format($pedido->Total, 2, '.', ',') }}</td>
+                        <td>{{ $pedido->dia->Nombre}}</td>
+                        <td>{{ $pedido->mes->Nombre}}</td>
+                        <td>${{ number_format($pedido->Total_Dia, 2, '.', ',') }}</td>
                     </tr>
                 @endforeach
                 </tbody>

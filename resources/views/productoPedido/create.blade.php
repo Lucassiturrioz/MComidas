@@ -40,20 +40,33 @@
                         </select>
                     </div>
 
+                    <input type="hidden" name="Precio_Actual" id="precio-actual" value="0">
+
+                    <script>
+                        document.getElementById('producto-select').addEventListener('change', function() {
+                            const precio = this.options[this.selectedIndex].getAttribute('data-precio');
+                            document.getElementById('precio-actual').value = precio;
+                        });
+                    </script>
+
                     <div class="form-group">
                         <label for="cantidad-input">Cantidad:</label>
                         <input type="number" name="Cantidad" class="form-control" id="cantidad-input" min="1" required>
                     </div>
 
                     <div class="form-group">
+
                         <label for="total-pedido-input">Total Pedido:</label>
                         <input type="number" name="Total_Pedido" class="form-control" id="total-pedido-input" readonly>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" name="Pagado" value="Pagado" class="form-check-input" id="pagado-checkbox">
+                        <input type="hidden" name="Estado" value="Sin pagar">
+
+                        <input type="checkbox" name="Estado" value="Pagado" class="form-check-input" id="pagado-checkbox">
                         <label class="form-check-label" for="pagado-checkbox">Pedido Pagado</label>
                     </div>
+
                 </div>
 
                 <div class="modal-footer">

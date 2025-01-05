@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Pedido;
+use App\Models\Producto;
 use App\Models\ProductoPedido;
 use App\Models\Quincena;
 use App\Models\RegistroQuincenaCliente;
@@ -12,58 +13,46 @@ use Illuminate\Http\Request;
 class ProductoPedidoController extends Controller
 {
 
+    public function create(Request $request, Cliente $cliente)
+    {
+        $pedido = Pedido::getFecha($request->fecha);
+
+        if ($pedido === null) {
+            return redirect()->back()->with('error', 'No existe pedido para esa fecha.');
+        }
+
+        $productos = Producto::allActivo();
+
+        return view('productoPedido.create', ['cliente'=>$cliente, 'pedido'=>$pedido, 'productos'=>$productos]);
+    }
+
+
+
     public function store(Request $request, Cliente $cliente, Pedido $pedido)
     {
         $datos = $request->validate([
             'ID_Producto' => 'required|exists:producto,ID',
             'Cantidad' => 'required|integer|min:1',
             'Total_Pedido' => 'required|numeric|min:0',
+            'Estado' => 'required',
+            'Precio_Actual' => 'required',
         ]);
 
         $datos['ID_Cliente'] = $cliente->ID;
         $datos['ID_Pedido'] = $pedido->ID;
 
-        $productoPedido = ProductoPedido::where([
-            ['ID_Cliente', '=', $datos['ID_Cliente']],
-            ['ID_Producto', '=', $datos['ID_Producto']],
-        ])->first();
+        $this->actualizarProductoPedido($datos);
 
-        if($productoPedido != null){
-            $productoPedido->Cantidad += $datos['Cantidad'];
-            $productoPedido->Total_Pedido += $datos['Total_Pedido'];
-            $productoPedido->save();
-        } else {
-            ProductoPedido::create($datos);
+        if ($datos['Estado'] === 'Pagado') {
+            return $this->handlePagado($pedido);
         }
 
-        $registroQuincenaCliente = RegistroQuincenaCliente::where([
-            ['ID_Cliente', '=', $cliente->ID],
-            ['ID_Cuenta', '=', $pedido->Cuenta],
-        ])->first();
-
-        $quincena = Quincena::where([
-            ['ID', '=', $pedido->Cuenta],
-        ])->first();
-
-        if ($registroQuincenaCliente == null) {
-            RegistroQuincenaCliente::create([
-                'ID_Cliente' => $cliente->ID,
-                'ID_Cuenta' => $pedido->Cuenta,
-                'Total_Quincena' => $datos['Total_Pedido'],
-            ]);
-        } else{
-            $registroQuincenaCliente->Total_Quincena += $datos['Total_Pedido'];
-            $registroQuincenaCliente->save();
-
-        }
-
-        $quincena->increment('Total_ganado', $datos['Total_Pedido']);
-        $quincena->save();
-
+        $this->actualizarRegistroQuincena($cliente, $pedido, $datos['Total_Pedido']);
         $pedido->modificarPrecio($datos['Total_Pedido']);
 
-        return redirect("/pedidos/".$pedido->ID)->with('success', 'Producto agregado al pedido con éxito.');
+        return redirect("/pedidos/" . $pedido->ID)->with('success', 'Producto agregado al pedido con éxito.');
     }
+
 
     public function destroy(ProductoPedido $productoPedido)
     {
@@ -95,6 +84,54 @@ class ProductoPedidoController extends Controller
 
         return view('productoPedido.show', compact('pedido', 'cliente', 'productos_pedidos'));
     }
+
+
+    private function handlePagado(Pedido $pedido)
+    {
+        return redirect("/pedidos/" . $pedido->ID)->with('info', 'El pedido ya está pagado. No se realizaron modificaciones.');
+    }
+
+    private function actualizarProductoPedido(array $datos)
+    {
+        $productoPedido = ProductoPedido::where([
+            ['ID_Cliente', '=', $datos['ID_Cliente']],
+            ['ID_Producto', '=', $datos['ID_Producto']],
+            ['Estado', '=', $datos['Estado']],
+        ])->first();
+
+        if ($productoPedido) {
+            $productoPedido->Cantidad += $datos['Cantidad'];
+            $productoPedido->Total_Pedido += $datos['Total_Pedido'];
+            $productoPedido->save();
+        } else {
+            ProductoPedido::create($datos);
+        }
+    }
+
+
+    private function actualizarRegistroQuincena(Cliente $cliente, Pedido $pedido,  $totalPedido)
+    {
+        $registroQuincenaCliente = RegistroQuincenaCliente::where([
+            ['ID_Cliente', '=', $cliente->ID],
+            ['ID_Cuenta', '=', $pedido->Cuenta],
+        ])->first();
+
+        if ($registroQuincenaCliente) {
+            $registroQuincenaCliente->Total_Quincena += $totalPedido;
+            $registroQuincenaCliente->save();
+        } else {
+            RegistroQuincenaCliente::create([
+                'ID_Cliente' => $cliente->ID,
+                'ID_Cuenta' => $pedido->Cuenta,
+                'Total_Quincena' => $totalPedido,
+            ]);
+        }
+
+        $quincena = Quincena::where('ID', $pedido->Cuenta)->first();
+        $quincena?->increment('Total_ganado', $totalPedido);
+    }
+
+
 
 
 }

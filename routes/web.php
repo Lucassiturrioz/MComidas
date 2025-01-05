@@ -40,8 +40,8 @@ Route::put('/clientes/{cliente}', [ClienteController::class, 'activate'])->name(
 Route::get('/pedidos', [PedidoController::class, 'index'])->name('pedidos.index');
 Route::get('/pedidos/{pedido}', [PedidoController::class, 'show'])->name('pedidos.show');
 Route::get('/clientes/{cliente}/agregar-pedido', [PedidoController::class, 'seleccionarFecha'])->name('pedidos.seleccionarFecha');
-Route::get('/clientes/{cliente}/pedido/', [PedidoController::class, 'pedido'])->name('pedidos.porFecha');
 
+Route::get('/clientes/{cliente}/pedido/', [ProductoPedidoController::class, 'create'])->name('pedidos.porFecha');
 Route::post('/clientes/{cliente}/agregar-pedido/{pedido}', [ProductoPedidoController::class, 'store'])->name('pedidos.agregarPedido');
 Route::get('/clientes/{cliente}/pedidos/{pedido}', [ProductoPedidoController::class, 'show'])->name('productoPedido.show');
 Route::delete('/producto-pedido/{productoPedido}', [ProductoPedidoController::class, 'destroy'])->name('productoPedido.detroy');

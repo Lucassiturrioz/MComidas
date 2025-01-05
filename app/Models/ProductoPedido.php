@@ -11,7 +11,7 @@ class ProductoPedido extends Model
     protected $primaryKey = 'ID';
     public $timestamps = false;
 
-    protected $fillable = ['ID_Producto','ID_Pedido','ID_Cliente','Total_Pedido','Cantidad'];
+    protected $fillable = ['ID_Producto','ID_Pedido','ID_Cliente','Total_Pedido','Cantidad','Estado','Precio_Actual'];
 
     public function Pedido(): BelongsTo {
         return $this->belongsTo(Pedido::class,'ID_Pedido','ID');
